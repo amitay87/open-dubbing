@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "OpenDubbing",
+    "version": "1.0",
+    "description": "Dub any cartoon you want. Choose dubbing from various dubbing recording",
+
+    "icons": {
+      "48": "icons/border-48.png"     
+    },
+
+    "content_scripts":
+    [
+        {
+            "matches":
+            [
+                "*://*.netflix.com/*"
+            ],
+            "js":
+            [
+                "open-dubbing.js"
+            ]
+        }
+    ]
+}
