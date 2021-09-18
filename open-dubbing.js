@@ -13,4 +13,29 @@ if (confirm('Are you sure you want to play the dub?')) {
   console.log('AAA Nothing was done');
 }
 
+// ==================================================
 
+// identify an element to observe
+function subscribeObserver(){
+	timeRemainingElement = window.document.querySelectorAll('[data-uia="controls-time-remaining"]')[0]; //.children[0];
+
+	// get time remaining:
+
+
+
+	// create a new instance of 'MutationObserver' named 'observer', 
+	// passing it a callback function
+	observer = new MutationObserver(function(mutationsList, observer) {
+	    console.log(mutationsList);
+    	timeRemainingText = timeRemainingElement.innerHTML
+
+		console.log(timeRemainingElement);
+		console.log(timeRemainingText);
+	});
+
+	// call 'observe' on that MutationObserver instance, 
+	// passing it the element to observe, and the options object
+	observer.observe(timeRemainingElement, {characterData: true, childList: true, attributes: true, subtree: true});
+}
+
+setTimeout(subscribeObserver, 5000);
