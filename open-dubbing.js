@@ -4,7 +4,8 @@ document.body.style.border = "30px solid blue";
 console.log("AAA before playing");
 if (confirm('Are you sure you want to play the dub?')) {
   // Play it!
-  	var audio = new Audio('https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3');
+  	var audioUrl = prompt("Please enter URL of dubbing audio for this video", 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3');
+  	var audio = new Audio(audioUrl);
 	audio.play();
 	console.log("AAA after playing");
 } else {
