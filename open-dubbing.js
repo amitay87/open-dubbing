@@ -39,3 +39,47 @@ function subscribeObserver(){
 }
 
 setTimeout(subscribeObserver, 5000);
+
+// press the 'E' key:
+
+var keyboardEvent = document.createEvent('KeyboardEvent');
+var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
+
+// keyboardEvent[initMethod](
+//   'keydown', // event type: keydown, keyup, keypress
+//   true, // bubbles
+//   true, // cancelable
+//   window, // view: should be window
+//   false, // ctrlKey
+//   false, // altKey
+//   false, // shiftKey
+//   false, // metaKey
+//   69, // keyCode: unsigned long - the virtual key code, else 0
+//   0, // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
+// );
+window.addEventListener('keydown', (e) => {
+  console.log(e)
+  // var event = e;
+})
+
+function dispatch(){
+	// document.dispatchEvent(keyboardEvent);
+	console.log("AAA clicking the element...");
+	var element = document.querySelector('div.rtl-fntwn3');
+
+	// var event = new KeyboardEvent('keydown', {
+ //  	'key': 'a',
+	// })
+
+var event = new MouseEvent('mouseover', {
+  'view': window,
+  'bubbles': true,
+  'cancelable': true
+});
+
+	// event.target = element;
+	// element.click(); // dispatchEvent(event);
+	element.dispatchEvent(event);
+	console.log("AAA element clicked");
+}
+setInterval(dispatch, 1000)
