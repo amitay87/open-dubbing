@@ -46,6 +46,12 @@ function subscribeObservers(){
 	    console.log(mutationsList);
     	playPauseText = playPauseElement.innerHTML
     console.log("AAA play/pause button status was changed");
+    if (playPauseElement.getAttribute('aria-label') == "הפעל"){
+    	audio.pause();
+    } else if (playPauseElement.getAttribute('aria-label') == "השהה"){
+    	audio.play();
+    }
+        
 		console.log(playPauseElement);
 
 		console.log(playPauseText);
