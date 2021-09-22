@@ -2,7 +2,6 @@ console.log("AAA hello!!!")
 document.body.style.border = "30px solid blue";
 // var audio = new Audio('audio/cleaning_machine_heb.mp3');
 console.log("AAA before playing");
-
 if (confirm('Are you sure you want to play the dub?')) {
   // Play it!
   	var audio = new Audio('https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3');
@@ -16,47 +15,58 @@ if (confirm('Are you sure you want to play the dub?')) {
 // ==================================================
 
 // identify an element to observe
-function subscribeObserver(){
+function subscribeObservers(){
+	console.log("AAA subscribing observers...");
 	timeRemainingElement = window.document.querySelectorAll('[data-uia="controls-time-remaining"]')[0]; //.children[0];
 
 	// get time remaining:
 
 
 
+
 	// create a new instance of 'MutationObserver' named 'observer', 
 	// passing it a callback function
-	observer = new MutationObserver(function(mutationsList, observer) {
-	    console.log(mutationsList);
+	timeElementObserver = new MutationObserver(function(mutationsList, timeElementObserver) {
+	    // console.log(mutationsList);
     	timeRemainingText = timeRemainingElement.innerHTML
 
-		console.log(timeRemainingElement);
+		// console.log(timeRemainingElement);
+
 		console.log(timeRemainingText);
 	});
 
 	// call 'observe' on that MutationObserver instance, 
 	// passing it the element to observe, and the options object
-	observer.observe(timeRemainingElement, {characterData: true, childList: true, attributes: true, subtree: true});
+	timeElementObserver.observe(timeRemainingElement, {characterData: true, childList: true, attributes: true, subtree: true});
+
+
+	var playPauseElement = window.document.querySelectorAll('button.rtl-1enhvti')[1]; //'div.control-medium')[0].children[0].children[0];
+	console.log(playPauseElement);
+		playPauseObserver = new MutationObserver(function(mutationsList, playPauseObserver) {
+	    console.log(mutationsList);
+    	playPauseText = playPauseElement.innerHTML
+    console.log("AAA play/pause button status was changed");
+		console.log(playPauseElement);
+
+		console.log(playPauseText);
+	});
+
+	// call 'observe' on that MutationObserver instance, 
+	// passing it the element to observe, and the options object
+	playPauseObserver.observe(playPauseElement, {characterData: true, childList: true, attributes: true, subtree: true});
+
+
+
 }
 
-setTimeout(subscribeObserver, 5000);
+setTimeout(subscribeObservers, 10000);
 
 // press the 'E' key:
 
 var keyboardEvent = document.createEvent('KeyboardEvent');
 var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
 
-// keyboardEvent[initMethod](
-//   'keydown', // event type: keydown, keyup, keypress
-//   true, // bubbles
-//   true, // cancelable
-//   window, // view: should be window
-//   false, // ctrlKey
-//   false, // altKey
-//   false, // shiftKey
-//   false, // metaKey
-//   69, // keyCode: unsigned long - the virtual key code, else 0
-//   0, // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
-// );
+
 window.addEventListener('keydown', (e) => {
   console.log(e)
   // var event = e;
@@ -64,7 +74,7 @@ window.addEventListener('keydown', (e) => {
 
 function dispatch(){
 	// document.dispatchEvent(keyboardEvent);
-	console.log("AAA clicking the element...");
+	// console.log("AAA clicking the element...");
 	var element = document.querySelector('div.rtl-fntwn3');
 
 	// var event = new KeyboardEvent('keydown', {
@@ -80,6 +90,6 @@ var event = new MouseEvent('mouseover', {
 	// event.target = element;
 	// element.click(); // dispatchEvent(event);
 	element.dispatchEvent(event);
-	console.log("AAA element clicked");
+	// console.log("AAA element clicked");
 }
 setInterval(dispatch, 1000)
