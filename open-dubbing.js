@@ -5,6 +5,13 @@ console.log("AAA before playing");
 if (confirm('Are you sure you want to play the dub?')) {
   // Play it!
   	var audioUrl = prompt("Please enter URL of dubbing audio for this video", 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3');
+  	var videoDurationStr = prompt("Please enter the video duration (hh:mm:ss");
+  	var datetime = new Date('1970-01-01T' + videoDurationStr + 'Z');
+  	var videoDuration = datetime.getTime()/1000;
+  	console.log("videoDuration: " + videoDuration)
+  	// TODO: add a regex for validation and cleaner parsing
+  	// var videoDurationMinutes = videoDurationStr.substring(0,2);
+
   	var audio = new Audio(audioUrl);
 	audio.play();
 	console.log("AAA after playing");
@@ -30,10 +37,18 @@ function subscribeObservers(){
 	timeElementObserver = new MutationObserver(function(mutationsList, timeElementObserver) {
 	    // console.log(mutationsList);
     	timeRemainingText = timeRemainingElement.innerHTML
-
+    	console.log(timeRemainingText);
+    	var timeRemaining = new Date('1970-01-01T' + '00:' + timeRemainingText + 'Z').getTime()/1000;
+    	console.log(timeRemaining);
 		// console.log(timeRemainingElement);
+			var elapsedTime = videoDuration - timeRemaining
+			console.log("elapsedTime: " + elapsedTime)
+			console.log("audio currentTime: " + audio.currentTime)
+			if (Math.abs(elapsedTime - audio.currentTime) > 2) {
+				console.log("abs(elapsedTime - audio.currentTime) > 1");
+				audio.currentTime = elapsedTime;
 
-		console.log(timeRemainingText);
+			}
 	});
 
 	// call 'observe' on that MutationObserver instance, 
@@ -50,6 +65,7 @@ function subscribeObservers(){
     if (playPauseElement.getAttribute('aria-label') == "הפעל"){
     	audio.pause();
     } else if (playPauseElement.getAttribute('aria-label') == "השהה"){
+    	audio.currentTime = videoDuration - remainingTime;
     	audio.play();
     }
         
